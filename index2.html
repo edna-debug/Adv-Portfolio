@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ednah Mutwiri | Portfolio</title>
+<meta name="description" content="Ednah Makandi Mutwiri | Software Engineering Student | Frontend & Backend Developer">
+<meta name="keywords" content="Portfolio, Software Engineering, HTML, CSS, JavaScript, Projects">
+<meta property="og:title" content="Ednah Mutwiri | Portfolio">
+<meta property="og:description" content="Software Engineering student building clean, user-friendly web experiences.">
+<meta property="og:image" content="images/profile.jpeg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #16121a;
+  --card: rgba(255,255,255,0.06);
+  --text: #f3eef6;
+  --muted: #b9afc2;
+  --pink: #ff69b4;
+  --pink-deep: #e0428e;
+}
+:root[data-theme="light"] {
+  --bg: #fff5fa;
+  --card: rgba(0,0,0,0.05);
+  --text: #2a1f30;
+  --muted: #6b5d74;
+  --pink: #d6337f;
+  --pink-deep: #b3236a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+
+body { background: var(--bg); color: var(--text); line-height: 1.6; transition: background .3s, color .3s; }
+a { color: var(--pink); }
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+
+/* WELCOME SCREEN */
+#welcome-screen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #ffb6d5; color: #3a0f26;
+  display: flex; justify-content: center; align-items: center;
+  font-size: clamp(24px, 5vw, 40px); text-align: center; padding: 20px;
+  transition: transform 1s ease, opacity 1s ease;
+}
+.slide-out { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
+  padding: 14px 20px;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 22px;
+}
+nav a { color: #fff; text-decoration: none; font-weight: bold; padding-bottom: 2px; border-bottom: 2px solid transparent; transition: .3s; }
+nav a:hover, nav a.active { color: var(--pink); border-color: var(--pink); }
+#theme-toggle { background: transparent; border: 1px solid var(--pink); color: #fff; padding: 4px 10px; font-size: 16px; }
+#theme-toggle:hover { background: var(--pink); }
+
+/* SECTIONS */
+main { min-height: 75vh; }
+section { display: none; padding: 80px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
+section.active { display: block; animation: fadeIn .6s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+section p { max-width: 65ch; margin: 0 auto 16px; }
+h1, h2 { color: var(--pink); margin-bottom: 24px; }
+h1 { font-size: clamp(32px, 6vw, 52px); }
+h2 { font-size: clamp(26px, 4vw, 36px); }
+h3 { margin-bottom: 8px; }
+
+/* INTRO */
+.profile-pic { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--pink); margin-bottom: 20px; background: var(--card); }
+.role { color: var(--muted); font-size: 18px; margin-bottom: 16px; }
+#typed-text { min-height: 56px; }
+.btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 24px 0; }
+.btn, button[type="submit"] {
+  display: inline-block; padding: 12px 24px; background: var(--pink); color: #fff;
+  border: 2px solid var(--pink); border-radius: 6px; font-weight: bold; text-decoration: none; cursor: pointer; font-size: 16px; transition: .3s;
+}
+.btn:hover, button[type="submit"]:hover { background: var(--pink-deep); border-color: var(--pink-deep); }
+.btn.outline { background: transparent; color: var(--pink); }
+.btn.outline:hover { background: var(--pink); color: #fff; }
+.socials { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+.socials a { color: var(--muted); text-decoration: none; font-weight: bold; }
+.socials a:hover { color: var(--pink); }
+
+/* EDUCATION / TIMELINE */
+.timeline { text-align: left; max-width: 620px; margin: 24px auto; border-left: 3px solid var(--pink); padding-left: 20px; }
+.timeline-item { margin-bottom: 20px; }
+.timeline-item span { color: var(--pink); font-weight: bold; }
+.gallery img { width: 300px; max-width: 100%; margin: 10px; border-radius: 10px; transition: transform .3s; }
+.gallery img:hover { transform: scale(1.05); }
+
+/* SKILLS */
+.skill { width: 90%; max-width: 600px; margin: 16px auto; text-align: left; }
+.skill span { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.bar { width: 100%; height: 12px; background: var(--card); border-radius: 6px; overflow: hidden; }
+.fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink-deep), var(--pink)); border-radius: 6px; transition: width 1.5s ease; }
+.badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
+.badges span, .tags span { background: var(--card); border: 1px solid var(--pink); border-radius: 20px; padding: 4px 14px; font-size: 14px; }
+
+/* PROJECTS */
+.projects { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+.project-card { background: var(--card); border: 2px solid var(--pink); border-radius: 10px; width: 300px; padding: 15px; text-align: left; transition: transform .3s; }
+.project-card:hover { transform: translateY(-5px); }
+.project-card img { width: 100%; height: 170px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; background: var(--card); }
+.project-card p { margin: 0 0 12px; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.tags span { font-size: 12px; padding: 2px 10px; }
+.links { display: flex; gap: 14px; font-weight: bold; }
+
+/* CONTACT */
+form { display: flex; flex-direction: column; gap: 15px; max-width: 420px; margin: 0 auto; }
+input, textarea { padding: 12px; border-radius: 6px; border: 1px solid var(--pink); background: var(--card); color: var(--text); font-size: 16px; }
+#form-status { min-height: 24px; font-weight: bold; }
+
+/* FOOTER */
+footer { background: #111; color: #ccc; padding: 24px; text-align: center; font-size: 14px; }
+
+@media (max-width: 768px) {
+  section { padding: 70px 16px; }
+  .profile-pic { width: 150px; height: 150px; }
+  .projects { flex-direction: column; align-items: center; }
+  .gallery img { width: 90%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  html { scroll-behavior: auto; }
+  section.active { animation: none; }
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #ff4b4b;
+    border-radius: 50%;
+    left: -39px;
+    top: 5px;
+}
+
+
+</style>
+</head>
+<body>
+
+<div id="welcome-screen">✨ Welcome to My Portfolio ✨</div>
+
+<nav aria-label="Main navigation">
+  <a href="#intro">Home</a>
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#future">Future</a>
+  <a href="#contact">Contact</a>
+  <button id="theme-toggle" type="button" aria-label="Toggle light and dark mode">🌙</button>
+</nav>
+
+<main>
+
+<!-- Introduction -->
+<section id="intro">
+  <img src="images/profile.jpeg" class="profile-pic" alt="Portrait of Ednah Makandi Mutwiri">
+  <h1>Ednah Makandi Mutwiri</h1>
+  <p class="role">Software Engineering Student | Frontend Developer</p>
+  <p id="typed-text" aria-live="polite"></p>
+  <div class="btn-row">
+    <a class="btn" href="#projects">View Projects</a>
+    <a class="btn outline" href="CURRICULUM VITAE.docx" download>Download CV</a>
+  </div>
+  <div class="socials">
+    <a href="https://github.com/edna-debug" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:mutwiriedna6@gmail.com">Email</a>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>
+    I'm a software engineering student who loves turning ideas into working websites.
+    I got into tech through Scratch, and that curiosity grew into building real pages
+    with HTML, CSS and JavaScript.
+  </p>
+  <p>
+    I want to build tools that are simple to use and solve real problems for people.
+    I value discipline, integrity and collaboration.
+  </p>
+  <h2>My motto</h2>
+  <p><em>"[“Creating today, innovating for tomorrow.]"</em></p>
+  <p>[#keep moving]</p>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <h2>Education</h2>
+
+  <div class="timeline">
+
+      <div class="timeline-item">
+          <span>2024 - Present</span>
+          <p><strong>BSc Software Engineering</strong></p>
+          <p>Kirinyaga University</p>
+          <p>Expected graduation: 2028</p>
+      </div>
+
+      <div class="timeline-item">
+          <span>Relevant Areas</span>
+          <p>
+              Web Development<br>
+              Database Systems<br>
+              Software Engineering<br>
+              Algorithms and Data Structures<br>
+              Artificial Intelligence
+          </p>
+      </div>
+
+      <div class="timeline-item">
+          <span>Additional Skills</span>
+          <p>Leadership • Teamwork • Communication</p>
+      </div>
+
+  </div>
+</section>
+   <!--
+  <div class="gallery">
+    <img src="images/hg2.jpeg" alt="Education highlight" loading="lazy">
+  </div>-->
+
+<!-- skills -->
+<section id="skills">
+  <h2>Skills &amp; Talents</h2>
+  <div class="skill">
+    <span>Frontend Development (HTML, CSS) <em>85%</em></span>
+    <div class="bar"><div class="fill" data-width="85"></div></div>
+  </div>
+  <div class="skill">
+    <span>Scratch Programming <em>80%</em></span>
+    <div class="bar"><div class="fill" data-width="80"></div></div>
+  </div>
+  <div class="skill">
+    <span>Backend Development (Learning) <em>40%</em></span>
+    <div class="bar"><div class="fill" data-width="40"></div></div>
+  </div>
+  <div class="badges">
+    <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Git &amp; GitHub</span><span>VS Code</span><span>Responsive Design</span>
+  </div>
+</section>
+
+<!-- projects-->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="project-card">
+      <img src="images/vetranova.png" alt="VetraNova website screenshot" loading="lazy">
+      <h3>VetraNova</h3>
+      <p>A responsive website for [describe what it does and who it is for].</p>
+      <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+      <div class="links">
+        <a href="https://edna-debug.github.io/vetranova/" target="_blank" rel="noopener">Live Demo</a>
+        <a href="https://github.com/edna-debug/vetranova" target="_blank" rel="noopener">Source Code</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <img src="images/project2.png" alt="Project two screenshot" loading="lazy">
+      <h3>Project Two</h3>
+      <p>[Short description of the problem it solves.]</p>
+      <div class="tags"><span>HTML</span><span>CSS</span></div>
+      <div class="links">
+        <a href="#" target="_blank" rel="noopener">Live Demo</a>
+        <a href="#" target="_blank" rel="noopener">Source Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="future">
+  <h2>Future Aspirations</h2>
+  <p>
+    I aim to expand my knowledge in emerging technologies and eventually
+    establish a technology-driven enterprise.
+  </p>
+</section>
+
+ss
+<section id="contact">
+  <h2>Contact</h2>
+  <!-- Replace YOUR_FORM_ID with your Formspree form ID (formspree.io) -->
+  <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <input type="text" name="name" placeholder="Your Name" aria-label="Your name" required>
+    <input type="email" name="email" placeholder="Your Email" aria-label="Your email" required>
+    <textarea name="message" placeholder="Your Message" aria-label="Your message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+    <p id="form-status" role="status"></p>
+  </form>
+</section>
+
+</main>
+
+<footer>© 2026 Ednah Makandi | All Rights Reserved</footer>
+
+<script>
+// Typed intro
+const text = "Hi! I am a dedicated Software Engineering student passionate about technology and innovation.";
+let i = 0;
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typed-text").textContent += text.charAt(i++);
+    setTimeout(typeWriter, 40);
+  }
+}
+
+window.addEventListener("load", () => {
+  typeWriter();
+  setTimeout(() => document.getElementById("welcome-screen").classList.add("slide-out"), 2000);
+});
+
+// Tabs: show one section at a time
+const sections = document.querySelectorAll("section");
+const links = document.querySelectorAll("nav a");
+function showSection(id) {
+  const target = document.getElementById(id);
+  if (!target || target.tagName !== "SECTION") id = "intro";
+  sections.forEach(sec => sec.classList.toggle("active", sec.id === id));
+  links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + id));
+  document.querySelectorAll(".fill").forEach(f => f.style.width = "0");
+  if (id === "skills") {
+    setTimeout(() => document.querySelectorAll("#skills .fill").forEach(f => f.style.width = f.dataset.width + "%"), 50);
+  }
+  window.scrollTo(0, 0);
+  try { history.replaceState(null, "", "#" + id); } catch (e) {}
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    showSection(a.getAttribute("href").slice(1));
+  });
+});
+showSection(location.hash.slice(1) || "intro");
+
+// Theme toggle (remembered between visits)
+const root = document.documentElement, toggle = document.getElementById("theme-toggle");
+try { if (localStorage.getItem("theme") === "light") { root.dataset.theme = "light"; toggle.textContent = "☀️"; } } catch (e) {}
+toggle.addEventListener("click", () => {
+  const light = root.dataset.theme !== "light";
+  root.dataset.theme = light ? "light" : "dark";
+  toggle.textContent = light ? "☀️" : "🌙";
+  try { localStorage.setItem("theme", light ? "light" : "dark"); } catch (e) {}
+});
+
+// Contact form (sends without leaving the page)
+const form = document.getElementById("contact-form"), status = document.getElementById("form-status");
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  status.textContent = "Sending...";
+  try {
+    const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+    if (res.ok) { status.textContent = "Thanks! Your message was sent."; form.reset(); }
+    else { status.textContent = "Something went wrong. Please email me directly."; }
+  } catch (err) {
+    status.textContent = "Could not send. Please email me directly.";
+  }
+});
+</script>
+</body>
+</html>
